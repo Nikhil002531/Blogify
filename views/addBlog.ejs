@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head")%>
+  <%- include("./partials/nav") %>
+  <body>
+  <form class="container m-4" action = "/blog" method="post"  enctype="multipart/form-data">
+
+    <div class="form-control mb-3">
+      <input type="file" name="coverImage" >
+    </div>
+
+  <div class="form-floating">
+  <input class="form-control mb-3" type = "text" name = "title" id="title"/>
+  <label for="title">Add Title</label>
+</div>
+
+<div class="form-floating">
+  <textarea class="form-control mb-3" name = "body" id="body" style="height: 100px"></textarea>
+  <label for="body">Blog Body</label>
+</div>
+
+      <button type="submit">Submit</button>
+</form>
+  <%- include("./partials/script")%>
+  </body>
+</html>

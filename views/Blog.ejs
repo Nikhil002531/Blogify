@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= currentBlog.title %></title>
+  <%- include("./partials/head")%>
+  <%- include("./partials/nav") %>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      line-height: 1.6;
+      background-color: #f8f9fa; /* Light gray background */
+      color: #333;
+      padding-bottom: 30px; /* Add some padding at the bottom */
+    }
+
+    .container {
+      max-width: 1200px; /* Limit the width of the content for better readability */
+      margin: 20px auto; /* Center the content with some top/bottom margin */
+      padding: 20px;
+      background-color: #fff; /* White background for the content area */
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    h1.blog-title {
+      font-size: 2.5rem;
+      color: #007bff; /* Primary color for the title */
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #ccc;
+      text-align: center;
+    }
+
+    .cover-image-container {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .cover-image {
+      width: 100%; /* Make the image responsive within its container */
+      max-height: 500px; /* Set a maximum height */
+      object-fit: cover; /* Cover the area, potentially cropping */
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .blog-body {
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    .author-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-size: 0.95rem;
+      color: #777;
+      font-weight: bold;
+    }
+
+    .author-profile-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 50%; /* Make it circular */
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-4">
+    <h1 class="blog-title"><%= currentBlog.title %></h1>
+
+    <div class="cover-image-container">
+      <img
+        src="<%= currentBlog.coverImage %>"
+        alt="coverImage"
+        class="cover-image"
+      >
+    </div>
+
+    <div class="blog-body">
+      <%- currentBlog.body %>
+    </div>
+
+    <div class="author-info">
+      <span>Author: <%= currentBlog.createdBy.username %></span>
+      <img
+        src="<%= currentBlog.createdBy.profileImageUrl %>"
+        alt="profile Image"
+        class="author-profile-image"
+      >
+    </div>
+
+    <div class="conatiner m-4">
+      <form action="/blog/comments/<%= currentBlog._id %>" method="post">
+        <input placeholder="Enter your comments here" type="text" name="content">
+        <button class="btn btn-sm btn-primary" type="submit">Add Comment</button>
+      </form>
+    </div>
+      <div class="container m-2">
+      <h4>Comments(<%= allComments.length %>)</h4>
+      <% if (locals.user) { %>
+      <% allComments.forEach(function(comment) { %>
+        <div class="mb-2">
+          <%= comment.createdBy.username %>:
+          <%= comment.content %>
+        </div>
+      <% }); %>
+    <% } %>
+    </div>
+  </div>
+  <%- include("./partials/script")%>
+</body>
+</html>
