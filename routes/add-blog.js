@@ -17,6 +17,8 @@ const storage = multer.diskStorage({
   },
 });
 
+
+
 const upload = multer({ storage: storage });
 
 router.get("/add-new", (req, res) => {
@@ -30,6 +32,7 @@ router.post("/", upload.single("coverImage"), async (req, res) => {
   const blog = await Blog.create({
     title,
     body,
+
     coverImage: `/uploads/${req.file.filename}`,
     createdBy: req.user.id,
   });
@@ -45,6 +48,7 @@ router.get("/:id", async (req, res) => {
     currentBlog,
     user: req.user,
     allComments,
+
   })
 })
 
