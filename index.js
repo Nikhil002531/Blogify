@@ -11,6 +11,7 @@ require("dotenv").config();
 
 const PORT = process.env.PORT;
 if (!PORT) {
+
   console.log("No PORT mentioned in env");
 }
 
@@ -18,11 +19,13 @@ mongoose.connect("mongodb://127.0.0.1:27017/blogify")
   .then(() => console.log("database connected"))
   .catch((error) => console.error("nope", error));
 
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(checkForAuth("token"));
 app.use(express.json());
+
 app.use(express.static(path.resolve("./public/")));
 
 app.set("view engine", "ejs");
